@@ -10,6 +10,10 @@ public class MethodGeneric {
         System.out.println("============");
         List<Integer> integers = Arrays.asList(1, 2, 3);
         printList(integers);
+        System.out.println("============");
+        System.out.println(add(1,99));
+        System.out.println("============");
+        System.out.println(add(11.0,22.0));
 
     }
 
@@ -27,4 +31,10 @@ public class MethodGeneric {
         System.out.println("這樣的泛型使用，可以保證方法的彈性");
         System.out.println("方法可被複用，不用重複造輪子");
     }
+    //可以善用繼承的關係來宣告泛型，這樣就可以讓所有的數字型別的相加
+    public static <T extends Number, U extends Number> double add(T num1, U num2) {
+        return num1.doubleValue() + num2.doubleValue();
+    }
+
+
 }
