@@ -23,7 +23,8 @@ public class CookieController {
 
         log.info("setTheme color:{}" , theme);
         Cookie cookie = new Cookie("theme", theme);
-        cookie.setMaxAge(5 * 60); // 保存5mins
+        cookie.setMaxAge(5 * 60); // 保存5 min
+        cookie.setHttpOnly(true); // 設置 HttpOnly 標誌
         response.addCookie(cookie);
         return "redirect:/getTheme";
     }
