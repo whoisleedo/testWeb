@@ -17,7 +17,7 @@ public class CookieController {
 
     private final static Logger log = LoggerFactory.getLogger(CookieController.class);
 
-    @GetMapping("/settheme")
+    @GetMapping("/setTheme")
     public String setTheme(@RequestParam(value = "theme" , required = false , defaultValue = "default") String theme,
                            HttpServletResponse response) {
 
@@ -25,10 +25,10 @@ public class CookieController {
         Cookie cookie = new Cookie("theme", theme);
         cookie.setMaxAge(5 * 60); // 保存5mins
         response.addCookie(cookie);
-        return "redirect:/gettheme";
+        return "redirect:/getTheme";
     }
 
-    @GetMapping("/gettheme")
+    @GetMapping("/getTheme")
     public String getTheme(HttpServletRequest request, Model model) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {

@@ -10,7 +10,7 @@
 </head>
 <body th:class="${theme == 'light' ? 'light-theme' : theme == 'dark' ? 'dark-theme' : 'default-theme'}">
 <h1>Theme is set to: <span th:text="${theme} ?: 'default'"></span></h1>
-<form action="/settheme" method="get">
+<form action="/setTheme" method="get">
   <select name="theme" >
     <option value="light" th:selected="${theme} eq 'light'">Light</option>
     <option value="dark" th:selected="${theme} eq 'dark'">Dark</option>

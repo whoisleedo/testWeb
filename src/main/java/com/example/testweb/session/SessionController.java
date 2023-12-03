@@ -13,14 +13,14 @@ public class SessionController {
 
     private final static Logger log = LoggerFactory.getLogger(SessionController.class);
 
-    @GetMapping("/setname")
+    @GetMapping("/setName")
     public String setName(@RequestParam(value = "name", required = false) String name, HttpSession session) {
        log.info("setName:{} , sessionId:{}",name,session.getId());
         session.setAttribute("name", name);
         return "nameSet";
     }
 
-    @GetMapping("/getname")
+    @GetMapping("/getName")
     public String getName(HttpSession session, Model model) {
         String name = (String) session.getAttribute("name");
         log.info("getName:{} , sessionId:{}" , name , session.getId());
