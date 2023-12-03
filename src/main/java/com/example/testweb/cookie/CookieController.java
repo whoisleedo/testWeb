@@ -37,11 +37,24 @@ public class CookieController {
                     String theme = cookie.getValue();
                     log.info("getTheme color:{}" , theme);
                     model.addAttribute("theme", theme);
+                    model.addAttribute("themeClass" , getCssClassForTheme(theme));
                     break;
                 }
             }
         }
         return "showTheme";
+    }
+
+    private String getCssClassForTheme(String theme) {
+        switch (theme){
+            case "light":
+                return "light-theme";
+            case "dark":
+                return  "dark-theme";
+            default:
+                return "default-theme";
+        }
+        
     }
 
 
