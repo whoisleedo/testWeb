@@ -1,4 +1,4 @@
-package com.example.testweb.listener;
+package com.example.testweb.listener.session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +16,13 @@ public class ActiveSessionListener implements HttpSessionListener {
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         activeSessions.incrementAndGet();
-        log.info("create a new session , active session count:{}" , activeSessions.get());
+        log.info("create a new session , active session count:{}" , getActiveSessions());
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
         activeSessions.decrementAndGet();
-        log.info("session destroyed, active session count:{}" , activeSessions.get());
+        log.info("session destroyed, active session count:{}" , getActiveSessions());
 
     }
 
