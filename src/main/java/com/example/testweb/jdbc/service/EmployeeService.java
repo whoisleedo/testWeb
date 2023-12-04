@@ -17,6 +17,14 @@ public class EmployeeService {
         return employeeDao.findById(id);
     }
 
+    public Employee getEmployeeByAnonymousClass(int id){
+        return employeeDao.getById(id);
+    }
+
+    public Employee getEmployeeByMethodReferences(int id){
+        return employeeDao.getById2(id);
+    }
+
     public List<Employee> listAllEmployee(){
         return employeeDao.findAll();
     }

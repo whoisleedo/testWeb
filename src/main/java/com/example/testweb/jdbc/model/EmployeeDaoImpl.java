@@ -7,9 +7,12 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -21,6 +24,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
     @Override
     public Employee findById(int id) {
         final String sql = "SELECT * FROM EMP2 WHERE EMPNO = ?";
+
         return jdbcTemplate.query(sql, new EmployeeRowMapper(), id)
                 .stream().findFirst().orElse(null);
     }
@@ -28,7 +32,59 @@ public class EmployeeDaoImpl implements EmployeeDao{
     @Override
     public List<Employee> findAll() {
         final String sql = "SELECT * FROM EMP2 ";
+
         return jdbcTemplate.query(sql, new EmployeeRowMapper());
+    }
+    //使用匿名類別的row mapper
+    @Override
+    public Employee getById(int id) {
+        final String sql = "SELECT * FROM EMP2 WHERE EMPNO = ?";
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            Employee employee = new Employee();
+            employee.setEmpNo(rs.getInt("EMPNO"));
+            employee.setEname(rs.getString("ENAME"));
+            employee.setJob(rs.getString("JOB"));
+            employee.setHireDate(parseLocalDate(rs.getString("HIREDATE")));
+            employee.setSal(parseBigDecimal(rs.getString("SAL")));
+            employee.setComm(parseBigDecimal(rs.getString("COMM")));
+            employee.setDeptNo(rs.getInt("DEPTNO"));
+            return employee;
+        }, id).stream().findFirst().orElse(null);
+    }
+    // 使用方法引用row mapper
+    @Override
+    public Employee getById2(int id) {
+        final String sql = "SELECT * FROM EMP2 WHERE EMPNO = ?";
+
+        return jdbcTemplate.query(sql,this::row2Employee , id)
+                           .stream().findFirst().orElse(null);
+    }
+
+    protected Employee row2Employee(ResultSet rs, int rowNo) throws SQLException {
+        Employee employee = new Employee();
+        employee.setEmpNo(rs.getInt("EMPNO"));
+        employee.setEname(rs.getString("ENAME"));
+        employee.setJob(rs.getString("JOB"));
+        employee.setHireDate(parseLocalDate(rs.getString("HIREDATE")));
+        employee.setSal(parseBigDecimal(rs.getString("SAL")));
+        employee.setComm(parseBigDecimal(rs.getString("COMM")));
+        employee.setDeptNo(rs.getInt("DEPTNO"));
+        return employee;
+    }
+
+    private BigDecimal parseBigDecimal(String numberString){
+        if(numberString == null){
+            return null;
+        }
+
+        return new BigDecimal(numberString);
+    }
+
+    private LocalDate parseLocalDate(String date){
+        if(date == null) return null;
+
+        return LocalDate.parse(date);
     }
 
     @Override
@@ -52,8 +108,6 @@ public class EmployeeDaoImpl implements EmployeeDao{
             employee.setEmpNo(key.intValue());
         }
         return employee;
-//        return jdbcTemplate.update(insertSql, employee.getEname(), employee.getJob(),
-//                employee.getHireDate(), employee.getSal(), employee.getComm(), employee.getDeptNo());
     }
 
     @Override

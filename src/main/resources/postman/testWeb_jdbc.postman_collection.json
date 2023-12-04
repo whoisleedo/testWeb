@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\":1\n}",
+					"raw": "   {\n        \"ename\": \"MARTIN123\",\n        \"job\": \"SALESMAN\",\n        \"hireDate\": \"1981-09-28\",\n        \"sal\": 1250.00,\n        \"comm\": 1400.00,\n        \"deptNo\": 3\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -129,6 +129,50 @@
 					"path": [
 						"api",
 						"error"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "anonymous",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/test1/employee/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"test1",
+						"employee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "method References",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/test2/employee/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"test2",
+						"employee",
+						"1"
 					]
 				}
 			},

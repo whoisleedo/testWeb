@@ -42,4 +42,14 @@ public class EmpController {
         }
          return -1;
     }
+
+    // 以下為其他寫法的測試用
+    @GetMapping("test1/employee/{id}")
+    public Employee getEmployeeUseAnonymousClass(@PathVariable int id){
+        return employeeService.getEmployeeByAnonymousClass(id);
+    }
+    @GetMapping("test2/employee/{id}")
+    public Employee getEmployeeUseMethodReferences(@PathVariable int id){
+        return employeeService.getEmployeeByMethodReferences(id);
+    }
 }
